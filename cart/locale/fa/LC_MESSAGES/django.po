@@ -1,0 +1,73 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-10-13 23:12-0700\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Persian <LL@li.org>\n"
+"Language: fa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: .\cart\templates\cart\cart_detail.html:6
+#: .\cart\templates\cart\cart_detail.html:15
+msgid "Cart"
+msgstr "سبد خرید"
+
+#: .\cart\templates\cart\cart_detail.html:37
+msgid "Product Image"
+msgstr "تصویر محصول"
+
+#: .\cart\templates\cart\cart_detail.html:38
+msgid "Product Name"
+msgstr "نام محصول"
+
+#: .\cart\templates\cart\cart_detail.html:39
+msgid "Price"
+msgstr "قیمت"
+
+#: .\cart\templates\cart\cart_detail.html:40
+msgid "Quantity"
+msgstr "تعداد"
+
+#: .\cart\templates\cart\cart_detail.html:41
+#: .\cart\templates\cart\cart_detail.html:104
+msgid "Total"
+msgstr "جمع کل"
+
+#: .\cart\templates\cart\cart_detail.html:62
+#: .\cart\templates\cart\cart_detail.html:79
+#: .\cart\templates\cart\cart_detail.html:108
+msgid "$"
+msgstr "تومان"
+
+#: .\cart\templates\cart\cart_detail.html:88
+msgid "Cart is Empty! Please add some products to the cart."
+msgstr "سبد خرید خالی است! لطفاً محصولات را به سبد خرید اضافه کنید."
+
+#: .\cart\templates\cart\cart_detail.html:89
+msgid "Go Shopping"
+msgstr "به خرید بروید"
+
+#: .\cart\templates\cart\cart_detail.html:95
+msgid "Empty Cart"
+msgstr "سبد خرید را خالی کنید"
+
+#: .\cart\templates\cart\cart_detail.html:114
+msgid "Checkout"
+msgstr "تسویه حساب"
+
+#~ msgid "Product Successfully added to cart"
+#~ msgstr "محصول با موفقیت به سبد خرید اضافه شد"
+
+#~ msgid "Product Successfully removed from cart"
+#~ msgstr "محصول با موفقیت از سبد خرید حذف شد"

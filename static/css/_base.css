@@ -1,0 +1,33 @@
+@font-face {
+    font-family: IRANSansX;
+    font-style: normal;
+    font-weight: 400;
+    src: url('../fonts/iransansx/woff/IRANSansX-Regular.woff') format('woff'), url('../fonts/iransansx/woff2/IRANSansX-Regular.woff2') format('woff2');
+}
+
+
+/* converting english numbers to persian numbers */
+
+.ss02 {
+    -moz-font-feature-settings: "ss02";
+    -webkit-font-feature-settings: "ss02";
+    font-feature-settings: "ss02";
+}
+
+body {
+    font-family: "IRANSansX", serif;
+    text-align: right !important;
+}
+
+.product-image {
+    max-width: 100%;
+    /* حداکثر عرض تصویر برابر با 100% عرض کارت */
+    height: auto;
+    /* ارتفاع به‌صورت خودکار تنظیم می‌شود تا تناسب تصویر حفظ شود */
+    border-radius: 8px;
+    /* گرد کردن لبه‌های تصویر */
+    margin-bottom: 10px;
+    /* فاصله بین تصویر و عنوان */
+    object-fit: cover;
+    /* برای اطمینان از تناسب تصویر */
+}

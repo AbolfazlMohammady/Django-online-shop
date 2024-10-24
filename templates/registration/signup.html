@@ -1,0 +1,34 @@
+{% extends "_base.html" %}
+{% load crispy_forms_tags %}
+{% load i18n %}  <!-- برای ترجمه‌ها از این تگ استفاده می‌کنیم -->
+
+{% block title %}
+    {% trans "ثبت‌نام" %}
+{% endblock %}
+
+{% block content %}
+    <!-- Main Content Wrapper Start -->
+    <div class="main-content-wrapper">
+        <div class="page-content-inner pt--75 pb--80">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <div class="signup-box">
+                            <h3 class="heading__tertiary mb--30">{% trans "ثبت‌نام" %}</h3>
+                            <form class="form form--signup" method="post" action="{% url 'signup' %}">
+                                {% csrf_token %}
+                                {{ form|crispy }} <!-- فرم به صورت خودکار با استفاده از crispy forms رندر می‌شود -->
+
+                                <div class="d-flex justify-content-center align-items-center mt--20">  
+                                    <div class="form__group"> 
+                                        <input type="submit" value="{% trans 'ثبت‌ نام' %}" class="btn-submit">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

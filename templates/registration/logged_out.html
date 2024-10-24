@@ -1,0 +1,28 @@
+{% extends "_base.html" %}
+{% load crispy_forms_tags %}
+{% load i18n %}  
+
+{% block title %}
+    {% trans "خروج" %}
+{% endblock %}
+
+{% block content %}
+    <!-- Main Content Wrapper Start -->
+    <div class="main-content-wrapper">
+        <div class="page-content-inner pt--75 pb--80">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <div class="logout-box text-center">
+                            <h3 class="heading__tertiary mb--30">{% trans "آیا مطمئن هستید که می‌خواهید خارج شوید؟" %}</h3>
+                            <form method="post" action="{% url 'logout' %}">  
+                                {% csrf_token %}  
+                                <input type="submit" value="{% trans 'Logout' %}" class="btn-submit">  
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

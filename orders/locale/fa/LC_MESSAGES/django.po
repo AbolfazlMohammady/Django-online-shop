@@ -1,0 +1,120 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-10-17 06:28-0700\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+#: .\models.py:10
+msgid "Is Paid"
+msgstr "پرداخت شده است"
+
+#: .\models.py:12
+msgid "first_name"
+msgstr "نام"
+
+#: .\models.py:13
+msgid "last_name"
+msgstr "نام خانوادگی"
+
+#: .\models.py:14
+msgid "phone"
+msgstr "تلفن"
+
+#: .\models.py:15
+msgid "adress"
+msgstr "آدرس"  # تصحیح: باید "address" باشد.
+
+#: .\models.py:16
+msgid "Order Note"
+msgstr "یادداشت سفارش"
+
+#: .\models.py:27
+msgid "product"
+msgstr "محصول"
+
+#: .\models.py:28
+msgid "quantity"
+msgstr "کمیت"
+
+#: .\models.py:29
+msgid "price"
+msgstr "قیمت"
+
+#: .\templates\orders\order_create.html:9
+#: .\templates\orders\order_create.html:18
+msgid "Order"
+msgstr "سفارش"
+
+#: .\templates\orders\order_create.html:35
+msgid "Order Details"
+msgstr "جزئیات سفارش"
+
+#: .\templates\orders\order_create.html:48
+msgid "First Name"
+msgstr "نام"
+
+#: .\templates\orders\order_create.html:57
+msgid "Last Name"
+msgstr "نام خانوادگی"
+
+#: .\templates\orders\order_create.html:69
+msgid "Address"
+msgstr "آدرس"
+
+#: .\templates\orders\order_create.html:81
+msgid "Phone Number"
+msgstr "شماره تلفن"
+
+#: .\templates\orders\order_create.html:93
+msgid "Your Note"
+msgstr "یادداشت شما"
+
+#: .\templates\orders\order_create.html:94
+msgid "If you have a note, enter it here. Otherwise, leave it blank."
+msgstr "اگر یادداشتی دارید، آن را اینجا وارد کنید. در غیر این صورت، آن را خالی بگذارید."
+
+#: .\templates\orders\order_create.html:103
+msgid "Send"
+msgstr "ارسال"
+
+#: .\templates\orders\order_create.html:111
+msgid "Your Order"
+msgstr "سفارش شما"
+
+#: .\templates\orders\order_create.html:117
+msgid "Product"
+msgstr "محصول"
+
+#: .\templates\orders\order_create.html:118
+msgid "Total Price"
+msgstr "قیمت کل"
+
+#: .\templates\orders\order_create.html:127
+#: .\templates\orders\order_create.html:134
+msgid "$"
+msgstr "تومان"  # یا "ریال" بسته به واحد پول
+
+#: .\templates\orders\order_create.html:133
+msgid "Subtotal"
+msgstr "جمع کل"
+
+#: .\templates\orders\order_create.html:140
+msgid "Payment Method"
+msgstr "روش پرداخت"
+
+#: .\templates\orders\order_create.html:145
+msgid "Zarinpal Online Gateway"
+msgstr "درگاه آنلاین زرین‌پال"

@@ -1,0 +1,78 @@
+{% extends "_base.html" %}
+{% load i18n %}
+{% load static %}
+{% load humanize %}
+{% load crispy_forms_tags %}
+{% load translate_number_tags %}
+
+{% block title %} {% trans "Your Wishlist" %} {% endblock %}
+
+{% block content %}
+<div class="main-content-wrapper container-fluid">
+    <div class="shop-page-wrapper shop-fullwidth">
+        <div class="container">
+            <div class="row mb--50">
+                <div class="col-12">
+                    <h2 class="mb--40">{% trans "Your Wishlist" %}</h2>
+                    <div class="row xxl-block-grid-6 grid-space-20">
+                        {% for item in wishlisted_products %}
+                        <div class="col-xl-3 col-md-4 col-sm-6 mb--30">
+                            <div class="ShoppingYar-product">
+                                <div class="product-inner">
+                                    <figure class="product-image">
+                                        <a href="{{ item.product.get_absolute_url }}">
+                                            {% if item.product.image %}
+                                            <img src="{{ item.product.image.url }}" alt="{{ item.product.title }}">
+                                            {% else %}
+                                            <img src="{% static 'images/default_product.jpg' %}" alt="{% trans 'No Image Available' %}">
+                                            {% endif %}
+                                        </a>
+                                    </figure>
+                                    <div class="product-info">
+                                        <h3 class="product-title h6 mb--10">
+                                            <a href="{{ item.product.get_absolute_url }}">{{ item.product.title }}</a>
+                                        </h3>
+                                        <div class="product-price-wrapper mb--20">
+                                            {% if item.product.discount %}
+                                                <span class="money text-muted" style="text-decoration: line-through;">
+                                                    {{ item.product.price|intcomma:False|translate_number }} {% trans '$' %}
+                                                </span>
+                                                <span class="money-separator">-</span>
+                                                <span class="new-price text-success">
+                                                    {{ item.product.discount_price|intcomma:False|translate_number }} {% trans '$' %}
+                                                </span>
+                                            {% else %}
+                                                <span class="money text-success">
+                                                    {{ item.product.price|intcomma:False|translate_number }} {% trans '$' %}
+                                                </span>
+                                            {% endif %}
+                                        </div>
+                                        <form action="{% url 'add-cart' item.product.id %}" method='post'>
+                                            <div class="quantity-wrapper">
+                                            {% csrf_token %}
+                                                <input type="hidden" class="quantity-input" name="quantity" id="qty" value="1" min="1" max="30">
+                                                <button type="submit" class="btn btn-small btn-bg-red btn-color-white btn-hover-2">
+                                                    {% trans 'Add to cart' %}
+                                                </button>
+                                            </div>
+                                        </form>
+                                        <!-- دکمه حذف از علاقه‌مندی‌ها -->
+                                        <a href="{% url 'remove-from-wishlist' item.product.id %}" class="btn btn-small btn-bg-gray btn-color-white mt--10">
+                                            {% trans "Remove from Wishlist" %}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% empty %}
+                            <div class="col-12">
+                                <p>{% trans "Your wishlist is empty." %}</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

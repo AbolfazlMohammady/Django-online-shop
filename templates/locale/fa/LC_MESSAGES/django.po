@@ -1,0 +1,75 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-10-13 23:12-0700\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: fa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: .\pages\templates\pages\test.html:7
+msgid "Product Detail"
+msgstr "جزئیات محصول"
+
+#: .\templates\_base.html:61
+msgid "Home"
+msgstr "خانه"
+
+#: .\templates\_base.html:66
+msgid "Blog"
+msgstr "بلاگ"
+
+#: .\templates\_base.html:71
+msgid "Pages"
+msgstr "صفحات"
+
+#: .\templates\_base.html:76 .\templates\_base.html:171
+msgid "Contact Us"
+msgstr "تماس با ما"
+
+#: .\templates\_base.html:102
+msgid "My Account"
+msgstr "حساب کاربری من"
+
+#: .\templates\_base.html:105
+msgid "Cart"
+msgstr "سبد خرید"
+
+#: .\templates\_base.html:108
+msgid "Wishlist"
+msgstr "لیست علاقه‌مندی‌ها"
+
+#: .\templates\_base.html:111
+msgid "Order History"
+msgstr "تاریخچه سفارش‌ها"
+
+#: .\templates\_base.html:169
+msgid "About Us"
+msgstr "درباره ما"
+
+#: .\templates\_base.html:170
+msgid "Terms & Conditions"
+msgstr "شرایط و ضوابط"
+
+#: .\templates\_base.html:175
+msgid "All rights reserved"
+msgstr "تمامی حقوق محفوظ است"
+
+#: .\templates\_base.html:188
+msgid "Enter your search term in the box below"
+msgstr "عبارت جستجوی خود را در کادر زیر وارد کنید"
+
+#: .\templates\_base.html:190
+msgid "Search among products..."
+msgstr "جستجو در میان محصولات..."

@@ -1,0 +1,209 @@
+{% extends "_base.html" %}
+{% load jalali_tags %}  
+{% load static %}
+{% load i18n %}
+{% load humanize %}
+
+
+{% load translate_number_tags %}
+{% load crispy_forms_tags %}
+
+{% block title %} {% trans "Product Detail" %} {% endblock %}
+
+{% block content %}
+<div class="wrapper">
+    <!-- Breadcrumb area Start -->
+    <div class="breadcrumb-area bg-color ptb--90" data-bg-color="#f6f6f6">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex justify-content-between align-items-center flex-sm-row flex-column">
+                        <h1 class="page-title">{% trans 'Product Detail' %} {{product.title}} </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb area End -->
+<!-- Global Overlay Start -->
+<div class="ShoppingYar-global-overlay"></div>
+<!-- Global Overlay End -->
+    <!-- Main Content Wrapper Start -->
+    <div class="main-content-wrapper">
+        <div class="page-content-inner ptb--80">
+            <div class="container">
+                <div class="row no-gutters mb--80">
+                    <div class="col-12 col-sm-4 product-main-image d-flex align-content-center">
+                        {% if product.image %}
+                        <img src="{{ product.image.url }}">
+                        {% endif %}
+                    </div>
+                    <div class="col-12 col-sm-8 product-main-details mt-md--50">
+                        <div class="product-summary pl-lg--30 pl-md--0 text-right p-4">
+                            <h3 class="product-title mb--20">{{product.title}} </h3>
+                            <p class="product-short-description mb--20">
+                                {{ product.description|truncatechars:300|safe }}
+                            </p>
+                            <div class="my-5 py-5 product-price-wrapper mb--25">
+                                {% if product.discount %}
+                                    <!-- قیمت اصلی با خط خورده -->
+                                    <span class="money text-muted" style="text-decoration: line-through;">
+                                        {{ product.price|intcomma:False|translate_number }} {% trans '$' %}
+                                    </span>
+                                    <span class="money-separator">-</span>
+                                    <!-- قیمت با تخفیف -->
+                                    <span class="new-price text-success">
+                                        {{ discount_price|intcomma:False|translate_number }} {% trans '$' %}
+                                    </span>
+                                {% else %}
+                                    <!-- فقط قیمت اصلی (بدون تخفیف) -->
+                                    <span class="money text-success">
+                                        {{ product.price|intcomma:False|translate_number }} {% trans '$' %}
+                                    </span>
+                                {% endif %}
+                            </div>
+                            
+                             <div class="product-action d-flex align-items-sm-center align-content-center mb--30">
+                                 <form action="{% url 'add-cart' product.id %}" method='post'>
+                                    <div class="quantity-wrapper d-flex justify-content-start">
+                                    {% csrf_token %}
+                                    <div class="quantity">
+                                        <input type="number" class="quantity-input" name="quantity" id="qty" value="1" min="1" max="30">
+                                    </div>
+                                    <button type="submit" class="btn btn-small btn-bg-red btn-color-white btn-hover-2">
+                                    {% trans 'Add to cart' %}
+                                    </button>
+                                    </div>
+                                </form>
+                                
+                                {% comment %} <div class="quantity-wrapper d-flex justify-content-start">
+                                    <div class="quantity">
+                                        <input type="number" class="quantity-input" name="qty" id="qty" value="1" min="1">
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-small btn-bg-red btn-color-white btn-hover-2" onclick="window.location.href='{% url 'cart-detail' %}'">
+                                    {% trans 'Add to cart' %}
+                                </button> {% endcomment %}
+                            </div> 
+                            <div class="product-footer-meta mt-5 pt-5">
+                                <p><span class="m-0">{% trans 'Categories' %}:</span>
+                                    {% for cate in category %}
+                                    <a href="shop.html">{{cate.name}}</a>,
+                                    {% endfor %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-12">
+                        <div class="product-data-tab tab-style-3">
+                            <div class="nav nav-tabs product-data-tab__head" id="product-tab" role="tablist">
+                                <a class="m-0 product-data-tab__link nav-link active" id="nav-description-tab" data-toggle="tab" href="#nav-description" role="tab" aria-selected="true">
+                                    <span>{% trans 'Product description' %}</span>
+                                </a>
+                                <a class="m-0 product-data-tab__link nav-link" id="nav-info-tab" data-toggle="tab" href="#nav-info" role="tab" aria-selected="true">
+                                    <span>{% trans 'Features' %}</span>
+                                </a>
+                                <a class="m-0 product-data-tab__link nav-link" id="nav-reviews-tab" data-toggle="tab" href="#nav-reviews" role="tab" aria-selected="true">
+                                    <span>{% trans 'Comments' %} ({{product_comment.count}})</span>
+                                </a>
+                            </div>
+                            <div class="tab-content product-data-tab__content" id="product-tabContent">
+                                <div class="tab-pane fade show active" id="nav-description" role="tabpanel" aria-labelledby="nav-description-tab">
+                                    <div class="product-description text-justify">
+                                        <p>{{ product.description|safe }}</p>
+                                    </div>
+                                </div>
+                                <div class="tab-pane text-right" id="nav-info" role="tabpanel" aria-labelledby="nav-info-tab">
+                                    <div class="table-content table-responsive">
+                                        <table class="table shop_attributes">
+                                            <tbody>
+                                                {% if product.weight %}
+                                                <tr>
+                                                    <th>{% trans 'Weight' %}</th>
+                                                    <td>{{product.weight}}</td>
+                                                </tr>
+                                                {% endif %}
+                                                {% if product.size %}
+                                                    <tr>
+                                                        <th>{% trans 'Size' %}</th>
+                                                        <td>{{product.size}}</td>
+                                                    </tr>
+                                                    {% endif %}
+                                                    {% if colors %}
+                                                    <tr>
+                                                        <th>{% trans 'Color' %}</th>
+                                                        <td>
+                                                        {% for item in colors %}
+                                                            <a href="shop-sidebar.html">{{ item.description }}</a>,
+                                                            {% endfor %}
+                                                        </td>
+                                                    </tr>
+                                                    {% endif %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="nav-reviews" role="tabpanel" aria-labelledby="nav-reviews-tab">
+                                    <div class="product-reviews">
+                                        <h3 class="review__title">{{product_comment.count}} {% trans 'Reviews for' %} {{product.title}}</h3>
+                                        <ul class="review__list">
+                                            {% for comment in product_comment %}
+                                            <li class="review__item">
+                                                <div class="review__container">
+                                                    <div class="review__text">
+                                                        <div class="d-flex flex-sm-row flex-row">
+                                                            <img src="{% static 'img/others/comment-1.jpg' %}" alt="Review Avatar" class="review__avatar p-3">
+                                                            <div>
+                                                                <div class="review__meta" dir="ltr">
+                                                                    <span class="review__published-date">{{ comment.datetime_created|to_jalali:'%Y/%m/%d'|translate_number }}</span>
+                                                                    <span class="review__dash">-</span>
+                                                                    <strong class="review__author px-4">{{ comment.author.username }}</strong>
+                                                                </div>
+                                                                <div class="product-rating">
+                                                                    <div class="m-0 star-rating star-five">
+                                                                        <span>{% trans 'Rated' %} <strong class="rating">{{comment.stars}}</strong> {% trans 'out of 5' %}</span>
+                                                                    </div>
+                                                                </div>
+                                                                <p class="review__description text-right px-4">
+                                                                    {{ comment.body }}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                        <div class="review-form-wrapper">
+                                            <div class="row">
+                                                <div class="border-top py-5 w-100"></div>
+                                                {% if user.is_authenticated %}
+                                                <div class="col-lg-8 m-auto">
+                                                    <span class="reply-title pull-right">{% trans 'Write your review' %}</span>
+                                                    <br>
+                                                    <form action="" class="form text-right" method="post">
+                                                        {% csrf_token %}
+                                                        {{ comment_form|crispy }}
+                                                        <input type="submit" value="{% trans 'Submit' %}" class="btn-submit">
+                                                    </form>
+                                                </div>
+                                                {% else %}
+                                                <p>{% trans 'to write you comment please' %} <a href="{% url 'account_login' %}">{% trans 'login' %}</a></p>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Main Content Wrapper End -->
+    {% include 'cart/cart_sidebar.html' %}
+
+{% endblock %}

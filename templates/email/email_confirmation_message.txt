@@ -1,0 +1,12 @@
+{% load account %}
+{% user_display user as user_display %}
+{% load i18n %}
+{% autoescape off %}
+
+{% blocktrans %}سلام! شما این ایمیل را دریافت کرده‌اید چون باید آدرس ایمیل خود را در سایت {{ current_site }} تایید کنید.{% endblocktrans %}
+
+{% blocktrans %}لطفاً روی لینک زیر کلیک کنید و ایمیل خود را تایید کنید:{% endblocktrans %}
+{{ activate_url }}
+
+{% blocktrans %}از استفاده شما از سایت {{ current_site }} سپاسگزاریم!{% endblocktrans %}
+{% endautoescape %}

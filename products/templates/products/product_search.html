@@ -1,0 +1,40 @@
+{% extends "_base.html" %}
+{% load jalali_tags %}  
+{% load static %}
+{% load i18n %}
+{% load humanize %}
+
+
+{% load translate_number_tags %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <h1 class="text-center">{% trans "نتایج جستجو" %}</h1>
+    <p class="text-center">{% trans "شما جستجو کردید برای:" %} "{{ query }}"</p>
+
+    {% if results %}
+        <div class="product-results">
+            <ul class="list-unstyled d-flex flex-wrap justify-content-center">
+                {% for product in results %}
+                    <li class="product-item">
+                        <div class="product-card">
+                            <a href="{{ product.get_absolute_url }}">
+                                {% if product.image %}
+                                    <img src="{{ product.image.url }}" alt="{{ product.title }}" 
+                                         width="100" height="100" style="object-fit: cover;"> <!-- اندازه تصویر -->
+                                {% else %}
+                                    <img src="{% static 'images/default.jpg' %}" alt="{% trans 'تصویری در دسترس نیست' %}" 
+                                         width="200" height="200" style="object-fit: cover;"> <!-- اندازه تصویر -->
+                                {% endif %}
+                                <h2 class="product-title">{{ product.title }}</h2>
+                                {% comment %} <p class="product-short-description">{{ product.short_description|truncatewords:20 }}</p> {% endcomment %}
+                                <span class="product-price">{{product.price|intcomma:False|translate_number }} {{ product.currency }}</span>
+                            </a>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% else %}
+        <p class="text-center">{% trans "هیچ نتیجه‌ای پیدا نشد." %}</p>
+    {% endif %}
+{% endblock %}

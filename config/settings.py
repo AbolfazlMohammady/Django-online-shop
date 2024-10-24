@@ -1,14 +1,22 @@
+import os
 from pathlib import Path
+from environs import Env
+from django.contrib.messages import constants as message
 
+# ایجاد نمونه environ
+env = Env()
+
+# خواندن فایل .env
+Env.read_env()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-b764$#(&o4o((cvy!z^nsseq5@erq#e^0%5r5a(%c24*f^*sde'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool('DEBUG')
 
 ALLOWED_HOSTS = []
 
@@ -23,27 +31,41 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'django.contrib.humanize',
+
     # app system
+    'jalali_date',
     'crispy_forms',
     "crispy_bootstrap5",
-    'allauth',
-    'allauth.account',
+    # 'allauth',
+    # 'allauth.account',
+    # 'django.contrib.sites',
+
+    'rosetta',
+    'ckeditor',
 
     # my app
-    'core',
+    'accounts',
+    'cart',
     'pages',
+    'orders',
+    'payment',
+    'bookmark',
+    'products',
+    'translation_number',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-    "allauth.account.middleware.AccountMiddleware",
+    # "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -61,6 +83,11 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                #Custom context processors
+                'cart.context_processors.cart',
+                'products.context_processors.product',
+
             ],
         },
     },
@@ -72,13 +99,22 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
+DATABASES = {
+     'default': {
+         'ENGINE': 'django.db.backends.mysql',
+         'NAME': 'shop',
+         'USER': 'root',
+         'HOST': 'localhost',
+         'PASSWORD': '625100125'
+     }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -98,29 +134,47 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
+# AUTHENTICATION_BACKENDS = [
+#     'django.contrib.auth.backends.ModelBackend',
 
-    'allauth.account.auth_backends.AuthenticationBackend',
-]
+#     # 'allauth.account.auth_backends.AuthenticationBackend',
+# ]
 
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+# LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fa'
 
-TIME_ZONE = 'UTC'
+LANGUAGES = [
+    # ('en', 'English'),
+    ('fa', 'Persian'),
+]
+
+# TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/tehran'
 
 USE_I18N = True
-
+USE_L10N =True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.0/howto/static-files/
+# Translate Config
+LOCALE_PATHS = (
+'templates/locale',
+)
 
+# Media Config
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR ,'media/')
+
+
+# Static files (CSS, JavaScript, Images)
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR,  'static')]
+STATIC_ROOT = os.path.join(BASE_DIR ,'staticfiles')
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -129,19 +183,20 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # User Config 
-AUTH_USER_MODEL= 'core.CustomUser'
+AUTH_USER_MODEL= 'accounts.CustomUser'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
 
 
 # all_auth config
-ACCOUNT_SESSION_REMEMBER = True
-ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_AUTHENTICATION_METHOD =  "email"
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_UNIQUE_EMAIL = True
-ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE= False
+# ACCOUNT_SESSION_REMEMBER = True
+# ACCOUNT_USERNAME_REQUIRED = False
+# ACCOUNT_AUTHENTICATION_METHOD =  "email"
+# ACCOUNT_EMAIL_REQUIRED = True
+# ACCOUNT_UNIQUE_EMAIL = True
+# ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE= False
+# SITE_ID = 1
 
 
 
@@ -150,6 +205,22 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 # Email Config 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.accounts.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.accounts.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'your-email@gmail.com'  # ایمیل جیمیل خود را اینجا وارد کنید
+# EMAIL_HOST_PASSWORD = 'your-app-password'  # اینجا همان App Password 16 رقمی که گوگل تولید کرد وارد کنید
+# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
+
+
+# Messages Config
+MESSAGE_TAGS={
+    message.ERROR :'danger',
+}
+
+#zarinpall
+MERCHANT_ID = env('MERCHANT_ID')
 

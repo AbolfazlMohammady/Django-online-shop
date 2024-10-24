@@ -1,0 +1,8 @@
+{% load i18n %}
+
+{% autoescape off %}
+
+{% blocktrans %}لطفاً آدرس ایمیل خود را تایید کنید - {{ current_site }} {% endblocktrans %}
+
+{% endautoescape %}
+

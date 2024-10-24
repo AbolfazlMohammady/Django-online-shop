@@ -1,0 +1,143 @@
+{% extends "_base.html" %}
+{% load static %}
+{% load i18n %}
+{% load humanize %}
+
+{% load crispy_forms_tags %}
+{% load translate_number_tags %}
+
+
+
+{% block title %} {% trans "Product List" %} {% endblock %}
+
+{% block content %}
+    <!-- Main Content Wrapper Start -->
+    <div class="main-content-wrapper container-fluid">
+        <div class="shop-page-wrapper shop-fullwidth">
+            <div class="container">
+                <div class="row mb--50">
+                    <div class="col-12">
+                        <div class="shop-toolbar">
+                            <div class="container row align-items-center">
+                                <div class="col-lg-12 mb-md--50 mb-xs--10">
+                                    <div class="shop-toolbar__left d-flex align-items-sm-center align-items-start flex-sm-row flex-column">
+                                        {% comment %} <p class="product-pages">{% trans "Showing 1-20 of 49" %}</p> {% endcomment %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid shop-products">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="tab-content" id="product-tab-content">
+                            <div class="tab-pane fade show active" id="nav-all">
+                                <div class="row xxl-block-grid-6 grid-space-20">
+                                    {% for product in products %}
+                                    <div class="col-xl-3 col-md-4 col-sm-6 mb--30">  <!-- فاصله بین محصولات کاهش یافت -->
+                                        <div class="ShoppingYar-product">
+                                            <div class="product-inner">
+                                                <figure class="product-image">
+                                                    <a href="{{ product.get_absolute_url }}">
+                                                        {% if product.image %}
+                                                        <img src="{{ product.image.url }}">
+                                                        {% endif %}
+                                                    </a>
+                                                    <div class="ShoppingYar-product-action">
+                                                        <div class="product-action d-flex">
+                                                            {% if user.is_authenticated %}
+                                                                {% if product in user.wishlists.all %}
+                                                                    <!-- اگر محصول در علاقه‌مندی‌های کاربر بود، دکمه‌ی حذف نمایش داده شود -->
+                                                                    <a href="{% url 'remove-from-wishlist' product.id %}" class="action-btn" title="{% trans 'Remove from Wishlist' %}">
+                                                                        <i class="flaticon flaticon-like"></i>  <!-- آیکون حذف از علاقه‌مندی -->
+                                                                    </a>
+                                                                {% else %}
+                                                                    <!-- اگر محصول در علاقه‌مندی‌ها نبود، دکمه‌ی اضافه نمایش داده شود -->
+                                                                    <a href="{% url 'add-to-wishlist' product.id %}" class="action-btn" title="{% trans 'Add to Wishlist' %}">
+                                                                        <i class="flaticon flaticon-like"></i>  <!-- آیکون اضافه به علاقه‌مندی -->
+                                                                    </a>
+                                                                {% endif %}
+                                                            {% else %}
+                                                                <a href="{% url 'login' %}" class="action-btn" title="{% trans 'Login to add to Wishlist' %}">
+                                                                    <i class="flaticon flaticon-like"></i>
+                                                                </a>
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    {% if product.discount %}
+                                                        <!-- نمایش برچسب تخفیف فقط در صورت وجود تخفیف -->
+                                                        <span class="product-badge">{% trans "Special Offer" %}</span>
+                                                    {% endif %}
+                                                </figure>
+                                                <div class="product-info">
+                                                    <h3 class="product-title h6 mb--10">  <!-- فاصله‌ی زیر عنوان محصول کاهش یافت -->
+                                                        <a href="{{ product.get_absolute_url }}">{{ product.title }}</a>
+                                                    </h3>
+                                                    <div class="product-price-wrapper mb--20">  <!-- فاصله‌ی زیر قیمت محصول کاهش یافت -->
+                                                        <div class="my-3 py-3 product-price-wrapper mb--15">
+                                                            {% if product.discount %}
+                                                                <!-- قیمت اصلی با خط خورده -->
+                                                                <span class="money text-muted" style="text-decoration: line-through;">
+                                                                    {{ product.price|intcomma:False|translate_number }} {% trans '$' %}
+                                                                </span>
+                                                                <span class="money-separator">-</span>
+                                                                <!-- قیمت با تخفیف -->
+                                                                <span class="new-price text-success">
+                                                                    {{ product.discount_price|intcomma:False|translate_number }} {% trans '$' %}
+                                                                </span>
+                                                            {% else %}
+                                                                <!-- فقط قیمت اصلی (بدون تخفیف) -->
+                                                                <span class="money text-success">
+                                                                    {{ product.price|intcomma:False|translate_number }} {% trans '$' %}
+                                                                </span>
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                    <form action="{% url 'add-cart' product.id %}" method='post'>
+                                                        <div class="quantity-wrapper">
+                                                        {% csrf_token %}
+                                                            <input type="hidden" class="quantity-input" name="quantity" id="qty" value="1" min="1" max="30">
+                                                        <button type="submit" class="btn btn-small btn-bg-red btn-color-white btn-hover-2">
+                                                        {% trans 'Add to cart' %}
+                                                        </button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <nav aria-label="Page navigation" >
+                            <ul class="pagination justify-content-center">
+                            <li class="page-item">
+                                {% if page_obj.has_previous %}
+                                <a class="page-link" href="?page={{page_obj.previous_page_number}}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                                {% endif %}
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">{{page_obj.number}}</a></li>
+                            <li class="page-item">
+                                {% if page_obj.has_next %}
+                                <a class="page-link" href="?page={{page_obj.next_page_number}}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                                </a>
+                                {% endif %}
+                            </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Main Content Wrapper End -->
+    {% include 'cart/cart_sidebar.html' %}
+{% endblock %}
