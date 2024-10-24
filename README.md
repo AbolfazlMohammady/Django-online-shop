@@ -39,7 +39,7 @@
  <h2>🛠️ تکنولوژی‌ها و ابزارها</h2>  
  <ul>  
  <li>**فریمورک**: Django</li>  
- <li>**پایگاه‌داده**: SQLite / PostgreSQL</li>  
+ <li>**پایگاه‌داده**: SQLite / MySQL</li>  
  <li>**زبان‌های برنامه‌نویسی**: HTML, CSS, JavaScript</li>  
  <li>**کتابخانه‌ها**: Bootstrap, Django Rest Framework, jQuery</li>  
  </ul>  
@@ -63,7 +63,7 @@
  <pre><code>python manage.py runserver</code></pre>  
  </li>  
  </ol>  
- <p><strong>بازدید از وب‌سایت:</strong> <a href="http://127.0.0.1:8000">http://127.0.0.1:8000</a></p>  
+ <!-- <p><strong>بازدید از وب‌سایت:</strong> <a href="http://127.0.0.1:8000">http://127.0.0.1:8000</a></p>   -->
  </div>  
  </section>  
 
@@ -82,8 +82,8 @@
  <h2>📞 ارتباط با ما</h2>  
  <p>برای سوالات، نظرات یا مشکلات، می‌توانید با ما تماس بگیرید:</p>  
  <ul>  
- <li>**ایمیل**: <a href="mailto:example@example.com">example@example.com</a></li>  
- <li>**وب‌سایت**: <a href="https://example.com">example.com</a></li>  
+ <li>**ایمیل**: <a href="mailto:example@example.com">َabolfazlking22@gmail.com</a></li>  
+ <!-- <li>**وب‌سایت**: <a href="https://example.com">example.com</a></li>   -->
  <li>**گیت‌هاب**: <a href="https://github.com/username/django-online-shop">GitHub Repository</a></li>  
  </ul>  
  </div>  
@@ -92,10 +92,14 @@
  <section class="social-media">  
  <div class="container">  
  <h2>🎉 ما را در شبکه‌های اجتماعی دنبال کنید:</h2>  
- <ul>  
- <li><i class="fab fa-twitter"></i> <a href="https://twitter.com/yourusername">@yourusername</a></li>  
- <li><i class="fab fa-linkedin"></i> <a href="https://linkedin.com/in/yourusername">Your Profile</a></li>  
- </ul>  
+<h3 align="center">Connect with me:</h3>
+<p align="center">
+<a href="https://linkedin.com/in/abolfazl-mohammadi-990bb3320" target="_blank">
+  <img src="https://img.shields.io/badge/-LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" height="30" /></a>
+<a href="https://instagram.com/abolfazl.mohammadyi" target="_blank">
+  <img src="https://img.shields.io/badge/-Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white" alt="Instagram" height="30" /></a>
+</p>
+
  </div>  
  </section>  
  </main>  
